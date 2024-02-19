@@ -1,0 +1,11 @@
+protobuf==3.20
+keras
+Pillow
+matplotlib
+opencv-python
+Django
+psycopg2
+tzdata
+uWSGI
+djangorestframework
+django-crispy-forms
