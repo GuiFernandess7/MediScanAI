@@ -13,36 +13,33 @@ COPY ../package /package
 WORKDIR /app
 EXPOSE 8000
 
-# Instalação de dependências adicionais
-RUN apt-get update && apt-get install -y \
+# Instalação de dependências
+RUN apt-get update && \
+    apt-get install -y \
     libsm6 libxext6 libxrender-dev \
-    postgresql-client libpq-dev gcc\
+    postgresql-client libpq-dev gcc \
     python3-venv \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
-# Instalação do Python 3.8 (versão mais recente disponível)
-RUN apt-get update && apt-get install -y software-properties-common && \
-    add-apt-repository ppa:deadsnakes/ppa && apt-get update && \
-    apt-get install -y python3.8
+    software-properties-common \
+    python3.8 \
+    && apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Instalação de dependências do sistema para psycopg2
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && \
+    apt-get install -y \
     libpq-dev python3-dev \
-    && apt-get clean \
-    && sudo rm -rf /var/lib/apt/lists/*
+    && apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Criação do ambiente virtual e instalação das dependências do Python
 RUN python3.8 -m venv /py && \
     /py/bin/pip install --upgrade pip && \
-    /py/bin/pip install -r /requirements.txt
-
-RUN /py/bin/pip install /package/tensorflow-2.7.0-cp38-cp38-linux_x86_64.whl
+    /py/bin/pip install -r /requirements.txt && \
+    /py/bin/pip install /package/tensorflow-2.7.0-cp38-cp38-linux_x86_64.whl
 
 # Configuração de permissões e criação de diretórios
 RUN adduser --disabled-password --no-create-home app && \
-    mkdir -p /vol/web/static && \
-    mkdir -p /vol/web/media && \
+    mkdir -p /vol/web/static /vol/web/media && \
     chown -R app:app /vol && \
     chmod -R 755 /vol && \
     chmod -R +x /scripts
