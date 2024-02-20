@@ -30,7 +30,7 @@ RUN apt-get update && apt-get install -y software-properties-common && \
 RUN apt-get update && apt-get install -y \
     libpq-dev python3-dev \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    && sudo rm -rf /var/lib/apt/lists/*
 
 # Criação do ambiente virtual e instalação das dependências do Python
 RUN python3.8 -m venv /py && \
