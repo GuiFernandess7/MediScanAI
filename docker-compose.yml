@@ -19,7 +19,7 @@ services:
     environment:
       - SECRET_KEY=devsecretkey
       - DEBUG=1
-      - DB_HOST=mydb
+      - DB_HOST=db
       - DB_NAME=devdb
       - DB_USER=devuser
       - DB_PASS=changeme
@@ -29,7 +29,7 @@ services:
   db:
     image: postgres:13-alpine
     environment:
-      - POSTGRES_HOST=mydb
+      - POSTGRES_HOST=db
       - POSTGRES_DB=devdb
       - POSTGRES_USER=devuser
       - POSTGRES_PASSWORD=changeme
