@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from .serializers import (
     SignUpSerializer
 )
-from tokens import (
+from .tokens import (
     create_jwt_pair_for_user
 )
 from rest_framework import generics, status
