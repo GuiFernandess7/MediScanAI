@@ -9,10 +9,12 @@ from .serializers import (
 from .tokens import (
     create_jwt_pair_for_user
 )
+from rest_framework.permissions import AllowAny
 from rest_framework import generics, status
 
 
 class SignUpView(generics.GenericAPIView):
+    permission_classes = [AllowAny]
     serializer_class = SignUpSerializer
 
     def post(self, request: Request):
@@ -33,6 +35,7 @@ class SignUpView(generics.GenericAPIView):
 
 
 class LoginView(APIView):
+    permission_classes = [AllowAny]
 
     def post(self, request: Request):
         email = request.data.get("email")
