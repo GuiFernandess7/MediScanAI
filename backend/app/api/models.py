@@ -26,12 +26,6 @@ class Image(models.Model):
     results = models.TextField(default=None)
     created_at = models.DateTimeField(auto_now_add=True)
 
-    def calculate_results(self):
-        from .preprocessing.brain.preprocess_image import get_image_results
-        print("Image URL:", self.image)
-        self.results = get_image_results(self.image, target_size=(150, 150))
-        return self.results
-
     def __str__(self):
         return f"{self.category.name}-{self.created_at}"
 
