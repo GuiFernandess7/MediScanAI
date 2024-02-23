@@ -6,6 +6,9 @@ from rest_framework.views import APIView
 from .serializers import (
     SignUpSerializer
 )
+from tokens import (
+    create_jwt_pair_for_user
+)
 from rest_framework import generics, status
 
 
@@ -35,10 +38,12 @@ class LoginView(APIView):
         email = request.data.get("email")
         password = request.data.get("password")
         user = authenticate(email=email, password=password)
+
         if user is not None:
+            tokens = create_jwt_pair_for_user(user)
             response = {
                 "message": "Login Successfull",
-                "token": user.auth_token.key
+                "tokens": tokens
             }
             return Response(data=response, status=status.HTTP_200_OK)
 
