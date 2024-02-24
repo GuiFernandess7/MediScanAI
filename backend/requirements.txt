@@ -10,3 +10,4 @@ uWSGI
 djangorestframework
 django-crispy-forms
 djangorestframework-simplejwt
+drf-yasg[validation]

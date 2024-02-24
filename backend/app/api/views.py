@@ -17,7 +17,6 @@ class ImageViewSet(viewsets.ModelViewSet):
     serializer_class = ImageSerializer
 
     def list(self, request, *args, **kwargs):
-        # Filtra as imagens associadas ao usuário logado
         queryset = self.queryset.filter(user=request.user)
         serializer = self.serializer_class(queryset, many=True)
         response = {
@@ -25,7 +24,7 @@ class ImageViewSet(viewsets.ModelViewSet):
             'data': serializer.data
         }
         return Response(response, status=status.HTTP_200_OK)
-        
+
     def retrieve(self, *args, **kwargs):
         image = self.get_object()
         serializer = self.serializer_class(image)
