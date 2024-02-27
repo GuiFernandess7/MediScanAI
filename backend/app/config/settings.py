@@ -13,7 +13,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 from datetime import timedelta
 import os
-import sys
+from dotenv import load_dotenv
+from django.core.management.utils import get_random_secret_key
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,13 +30,6 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = bool(int(os.environ.get('DEBUG', 0)))
 
 ALLOWED_HOSTS = []
-ALLOWED_HOSTS.extend(
-    filter(
-        None, # Remove None value from list of hosts
-        os.environ.get('ALLOWED_HOSTS', '').split(','),
-    )
-)
-
 
 # Application definition
 INSTALLED_APPS = [
@@ -100,22 +95,6 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
-
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'HOST': os.environ.get('DB_HOST'),
-        'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_PASS'),
-    }
-}
-
-
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -135,6 +114,41 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+DB_CONNECTION_NAME = os.environ.get('DB_CONNECTION_NAME')
+DB_USER = os.environ.get('DB_USER')
+DB_PASS = os.environ.get('DB_PASS')
+DB_NAME = os.environ.get('DB_NAME')
+
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'HOST': f'{DB_CONNECTION_NAME}',
+            'NAME': f'{DB_NAME}',
+            'USER': f'{DB_USER}',
+            'PASSWORD': f'{DB_PASS}',
+            'PORT': '5432',
+        }
+    }
+else:
+    ALLOWED_HOSTS.extend(
+    filter(
+        None, # Remove None value from list of hosts
+        os.environ.get('ALLOWED_HOSTS', '').split(','),
+        )
+    )
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'HOST': 'localhost',
+            'NAME': os.environ.get('DB_NAME_LOCAL'),
+            'USER': os.environ.get('DB_USER_LOCAL'),
+            'PASSWORD': os.environ.get('DB_PASS_LOCAL'),
+            'PORT': '5432',
+        }
+    }
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -150,11 +164,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = '/static/static/'
-MEDIA_URL = '/static/media/'
+STATIC_URL = '/static/'
+STATIC_ROOT = '/static/'
 
-MEDIA_ROOT = '/vol/web/media'
-STATIC_ROOT = '/vol/web/static'
+STATICFILES_DIRS = [
+    os.path.join(f'{BASE_DIR}', 'static'),
+]
+
+#MEDIA_URL = '/static/media/'
+#MEDIA_ROOT = '/vol/web/media'
+#STATIC_ROOT = '/vol/web/static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

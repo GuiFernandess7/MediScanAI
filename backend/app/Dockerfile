@@ -5,10 +5,10 @@ ENV TF_ENABLE_ONEDNN_OPTS=0
 LABEL maintainer="guilhermesampaio"
 
 # Copia os arquivos necessários para o container
-COPY ../requirements.txt /requirements.txt
+COPY ./requirements.txt /requirements.txt
 COPY . /app
-COPY ../scripts /scripts
-COPY ../package /package
+COPY ./scripts /scripts
+COPY ./package /package
 
 WORKDIR /app
 EXPOSE 8000
@@ -39,14 +39,16 @@ RUN python3.8 -m venv /py && \
 
 # Configuração de permissões e criação de diretórios
 RUN adduser --disabled-password --no-create-home app && \
-    mkdir -p /vol/web/static /vol/web/media && \
-    chown -R app:app /vol && \
-    chmod -R 755 /vol && \
-    chmod -R +x /scripts
+    chmod -R +x /scripts && \
+    chmod 755 /static
+
+RUN chmod +x /scripts/entrypoint.sh
 
 # Usa o ambiente virtual a cada execução do contêiner
 ENV PATH="/scripts:/py/bin:$PATH"
 
+ENTRYPOINT ["/scripts/entrypoint.sh"]
+
 USER app
 
-CMD ["run.sh"]
+CMD gunicorn -b :$PORT config.wsgi

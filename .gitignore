@@ -4,7 +4,11 @@ __pycache__/
 *$py.class
 
 # Tensofrlow whl dependency
-backend/package/*
+backend/app/package/*
+
+# Docker-compose files
+docker-compose.yml
+docker-compose-deploy.yml
 
 # C extensions
 *.so
