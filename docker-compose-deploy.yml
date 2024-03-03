@@ -31,7 +31,8 @@ services:
 
   proxy:
     build:
-      context: ./proxy
+      context: ./backend
+      dockerfile: ./proxy/Dockerfile
     restart: always
     depends_on:
       - app

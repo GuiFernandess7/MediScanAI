@@ -5,6 +5,7 @@ __pycache__/
 
 # Tensofrlow whl dependency
 backend/package/*
+backend/app/package/*
 
 # C extensions
 *.so
