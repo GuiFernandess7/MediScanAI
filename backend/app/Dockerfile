@@ -7,7 +7,7 @@ LABEL maintainer="guilhermesampaio"
 # Copia os arquivos necessários para o container
 COPY ../requirements.txt /requirements.txt
 COPY . /app
-COPY ../scripts /scripts
+#COPY ../scripts /scripts
 COPY ../package /package
 
 WORKDIR /app
@@ -49,4 +49,4 @@ ENV PATH="/scripts:/py/bin:$PATH"
 
 USER app
 
-CMD ["run.sh"]
+CMD ["./scripts/run.sh"]

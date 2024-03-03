@@ -4,7 +4,8 @@ services:
 
   app:
     build:
-      context: .
+      context: ./backend
+      dockerfile: ./app/Dockerfile
     restart: always
     volumes:
       - static-data:/vol/web
@@ -35,7 +36,7 @@ services:
     depends_on:
       - app
     ports:
-      - 80:8000
+      - 8000:8000
     volumes:
       - static-data:/vol/static
 
