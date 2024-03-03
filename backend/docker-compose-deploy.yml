@@ -4,8 +4,7 @@ services:
 
   app:
     build:
-      context: ./backend
-      dockerfile: ./app/Dockerfile
+      context: ./app
     restart: always
     volumes:
       - static-data:/vol/web
@@ -31,8 +30,7 @@ services:
 
   proxy:
     build:
-      context: ./backend
-      dockerfile: ./proxy/Dockerfile
+      context: ./proxy
     restart: always
     depends_on:
       - app

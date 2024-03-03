@@ -5,12 +5,12 @@ ENV TF_ENABLE_ONEDNN_OPTS=0
 LABEL maintainer="guilhermesampaio"
 
 # Copia os arquivos necessários para o container
-COPY ../requirements.txt /requirements.txt
+COPY ./requirements.txt /requirements.txt
 COPY . /app
 
-COPY /app/scripts /app/scripts
+COPY ./scripts app/scripts
 
-COPY ../package /package
+COPY ./package /package
 
 WORKDIR /app
 EXPOSE 8000
@@ -37,7 +37,7 @@ RUN apt-get update && \
 RUN python3.8 -m venv /py && \
     /py/bin/pip install --upgrade pip && \
     /py/bin/pip install -r /requirements.txt && \
-    /py/bin/pip install /package/tensorflow-2.7.0-cp38-cp38-linux_x86_64.whl
+    /py/bin/pip install package/tensorflow-2.7.0-cp38-cp38-linux_x86_64.whl
 
 # Configuração de permissões e criação de diretórios
 RUN adduser --disabled-password --no-create-home app && \
@@ -51,4 +51,4 @@ ENV PATH="/scripts:/py/bin:$PATH"
 
 USER app
 
-CMD ["/scripts/run.sh"]
+CMD ["./scripts/run.sh"]
