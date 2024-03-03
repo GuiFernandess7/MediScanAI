@@ -4,7 +4,7 @@ services:
 
   app:
     build:
-      context: .
+      context: ./app
     restart: always
     volumes:
       - static-data:/vol/web

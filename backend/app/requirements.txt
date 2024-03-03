@@ -1,8 +1,8 @@
 protobuf==3.20
-keras
+#keras
 Pillow
 matplotlib
-opencv-python
+#opencv-python
 Django
 psycopg2
 tzdata
