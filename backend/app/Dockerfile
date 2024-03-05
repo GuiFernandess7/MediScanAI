@@ -10,7 +10,7 @@ COPY . /app
 
 COPY ./scripts app/scripts
 
-COPY ./package /package
+COPY ./package app/package
 
 WORKDIR /app
 EXPOSE 8000
