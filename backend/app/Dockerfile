@@ -8,8 +8,6 @@ LABEL maintainer="guilhermesampaio"
 COPY ../requirements.txt /requirements.txt
 COPY . /app
 
-COPY ./scripts app/scripts
-
 COPY ./package app/package
 
 WORKDIR /app
@@ -44,6 +42,7 @@ RUN adduser --disabled-password --no-create-home app && \
     mkdir -p /vol/web/static /vol/web/media && \
     chown -R app:app /vol && \
     chmod -R 755 /vol && \
+    chmod -R 755 /app && \
     chmod -R +x ./scripts
 
 # Usa o ambiente virtual a cada execução do contêiner
@@ -51,4 +50,4 @@ ENV PATH="/scripts:/py/bin:$PATH"
 
 USER app
 
-CMD ["./scripts/run.sh"]
+# CMD ["./scripts/run.sh"]

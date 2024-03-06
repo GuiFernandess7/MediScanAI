@@ -6,7 +6,10 @@ services:
     build:
       context: ./app
     restart: always
+    stdin_open: true 
+    tty: true
     volumes:
+      - ./app/scripts:/app/scripts
       - static-data:/vol/web
     environment:
       - DB_HOST=db
