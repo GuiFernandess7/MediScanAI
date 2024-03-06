@@ -48,6 +48,6 @@ RUN adduser --disabled-password --no-create-home app && \
 # Usa o ambiente virtual a cada execução do contêiner
 ENV PATH="/scripts:/py/bin:$PATH"
 
-USER app
+# USER app
 
 # CMD ["./scripts/run.sh"]
