@@ -8,4 +8,4 @@ python /app/manage.py makemigrations users
 python /app/manage.py makemigrations api
 python /app/manage.py migrate --run-syncdb
 
-uwsgi --socket :9000 --workers 2 --master --enable-threads --module app.config.wsgi
+uwsgi --socket :9000 --workers 2 --master --enable-threads --module config.wsgi
