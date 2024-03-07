@@ -9,7 +9,7 @@ services:
     stdin_open: true 
     tty: true
     volumes:
-      - ./app/scripts:/app/scripts
+      - ./app:/app
       - static-data:/vol/web
     environment:
       - DB_HOST=db
