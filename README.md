@@ -1,3 +1,3 @@
 ## MediScanAI: HealthCare Image Analyser
 
-MediScanAI-HealthAI is a healthcare project applying AI for medical insights. Enhancing patient care through image classification with deep learning tools.
+MediScanAI is a computer vision healthcare project applying AI for medical insights. It classifies brain tumor types based on tomography images.
