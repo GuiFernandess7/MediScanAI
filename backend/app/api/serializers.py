@@ -25,7 +25,7 @@ class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
         fields = ('id', 'category', 'image', 'results',)
-        read_only_fields = ('created_at', 'results',)
+        read_only_fields = ('created_at', 'results', 'image')
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
